@@ -1,9 +1,3 @@
 rm -rf target
-
-cd SocketClient
-mvn clean
-
-cd ..
-
-cd SocketServer
-mvn clean
+mvn -f SocketClient/pom.xml clean
+mvn -f SocketServer/pom.xml clean
