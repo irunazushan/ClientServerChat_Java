@@ -11,10 +11,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 
 @Component
@@ -33,7 +31,7 @@ public class ChatroomsRepositoryImpl implements ChatroomsRepository<Chatroom> {
                 .addValue("id", id);
         Chatroom chatroom = template.queryForObject(query, namedParameters, (rs, rowNum) ->
                 new Chatroom(rs.getLong("id"),
-                        rs.getString("name"), findUserById(rs.getLong("creator")),null));
+                        rs.getString("name"), findUserById(rs.getLong("creator")), getMessagesFromChatroom(id)));
         if (chatroom != null) {
             chatroom.setMessages(getMessagesFromChatroom(chatroom.getId()));
             return Optional.of(chatroom);
@@ -78,7 +76,7 @@ public class ChatroomsRepositoryImpl implements ChatroomsRepository<Chatroom> {
     }
 
     @Override
-    public List<Message> getMessagesFromChatroom(Long id){
+    public List<Message> getMessagesFromChatroom(Long id) {
         String query = "SELECT id, sender, chatroom, message, sent_time FROM messages WHERE chatroom=:chatroom";
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("chatroom", id);
@@ -109,7 +107,7 @@ public class ChatroomsRepositoryImpl implements ChatroomsRepository<Chatroom> {
         SqlParameterSource namedParameters = new MapSqlParameterSource()
                 .addValue("id", id);
         Chatroom room = template.queryForObject(query, namedParameters, (rs, rowNum) -> new Chatroom(
-                rs.getLong("id"), rs.getString("name"), findUserById(rs.getLong("creator")), null)
+                rs.getLong("id"), rs.getString("name"), findUserById(rs.getLong("creator")))
         );
         if (room != null) {
             return room;

@@ -11,9 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import edu.school21.sockets.models.User;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,7 +26,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     public UsersServiceImpl(@Qualifier("usersRepositoryImpl") UsersRepository ur,
-                            @Qualifier("messagesRepositoryImpl")MessagesRepository mr,
+                            @Qualifier("messagesRepositoryImpl") MessagesRepository mr,
                             @Qualifier("chatroomsRepositoryImpl") ChatroomsRepository cr) {
         this.ur = ur;
         this.mr = mr;
@@ -38,13 +36,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void signUp(String name, String password) {
         String encryptPassword = passwordEncoder.encode(password);
-        User user = new User (null, name, encryptPassword);
+        User user = new User(null, name, encryptPassword);
         ur.save(user);
     }
 
     @Override
     public User signIn(String name, String password) {
-        Optional<User> userOp = (Optional<User>)ur.findByName(name);
+        Optional<User> userOp = (Optional<User>) ur.findByName(name);
         User user = userOp.orElse(null);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;

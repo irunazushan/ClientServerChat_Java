@@ -10,12 +10,12 @@ public class Main {
     private static final int INVALID_PORT = -1;
 
     public static void main(String[] args) throws IOException {
-//        int port = getPort(args);
-//        if (port == INVALID_PORT) {
-//            throw new RuntimeException("Invalid arguments are given");
-//        }
+        int port = getPort(args);
+        if (port == INVALID_PORT) {
+            throw new RuntimeException("Invalid arguments are given");
+        }
 
-        Socket socket = new Socket("localhost", 8081);
+        Socket socket = new Socket("localhost", port);
         Client client = new Client(socket);
         client.runClient();
     }

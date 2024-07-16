@@ -3,7 +3,6 @@ package edu.school21.sockets.repositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -11,17 +10,18 @@ import org.springframework.stereotype.Component;
 import edu.school21.sockets.models.User;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.*;
 
 
 @Component
 public class UsersRepositoryImpl implements UsersRepository<User> {
     private final NamedParameterJdbcTemplate template;
+
     @Autowired
     public UsersRepositoryImpl(@Qualifier("hikariDataSource") DataSource dataSource) {
         template = new NamedParameterJdbcTemplate(dataSource);
     }
+
     @Override
     public Optional<User> findById(Long id) {
         String query = "SELECT id, name FROM users WHERE id = :id";

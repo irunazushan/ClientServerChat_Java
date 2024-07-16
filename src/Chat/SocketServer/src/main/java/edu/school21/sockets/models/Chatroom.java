@@ -3,7 +3,6 @@ package edu.school21.sockets.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,11 +15,19 @@ public class Chatroom {
     private User creator;
     private List<Message> messages;
 
+    public Chatroom(Long id, String name, User creator) {
+        this.id = id;
+        this.name = name;
+        this.creator = creator;
+    }
+
     public Chatroom(Long id, String name, User creator, List<Message> messages) {
         this.id = id;
         this.name = name;
         this.creator = creator;
-        this.messages = new CopyOnWriteArrayList<>(messages);
+        if (messages != null) {
+            this.messages = new CopyOnWriteArrayList<>(messages);
+        }
     }
 
     @Override

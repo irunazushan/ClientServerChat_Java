@@ -1,30 +1,22 @@
 package edu.school21.sockets.app;
 
 import edu.school21.sockets.server.Server;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
 public class Main {
 
-//    public static void main(String[] args) {
-//        ApplicationContext context = new AnnotationConfigApplicationContext(SocketsApplicationConfig.class);
-//        ChatroomsRepository ch = context.getBean("chatroomsRepositoryImpl", ChatroomsRepositoryImpl.class);
-//        System.out.println(ch.getMessagesFromChatroom(2L));
-//    }
-
-
-
-
     private static final String PORT_PREFIX = "--port=";
     private static final int INVALID_PORT = -1;
 
     public static void main(String[] args) throws IOException {
-//        int port = getPort(args);
-//        if (port == INVALID_PORT) {
-//            throw new RuntimeException("Invalid arguments are given");
-//        }
+        int port = getPort(args);
+        if (port == INVALID_PORT) {
+            throw new RuntimeException("Invalid arguments are given");
+        }
 
-        ServerSocket ss = new ServerSocket(8081);
+        ServerSocket ss = new ServerSocket(port);
         try {
             Server server = new Server(ss);
             server.runServer();
