@@ -34,3 +34,21 @@ Each user can:
 When the user re-enters the application, 30 last messages shall be displayed in the room the user visited previously.
 
 Using JSON format for message exchange will be a special task for you. In this way, each user command or message must be transferred to the server (and received from the server) in the form of a JSON line.
+
+## Install
+_before installing, make sure that you have Maven, Docker_
+
+   ```bash
+   git clone https://github.com/irunazushan/ClientServerChat_Java
+   cd src/Chat
+   # to start a server
+   bash run-server.sh
+   # to start a client
+   bash run-client.sh
+
+Then you can run several clients with command:
+    java -jar target/socket-server.jar --port=8081
+
+## Uninstall
+    bash clean.sh
+
